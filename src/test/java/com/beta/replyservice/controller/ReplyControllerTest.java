@@ -1,12 +1,9 @@
 package com.beta.replyservice.controller;
 
 import com.beta.replyservice.dto.response.ReplyMessage;
-import com.beta.replyservice.service.ReplyService;
-import com.beta.replyservice.service.impl.ReplyServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
-import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 

@@ -3,13 +3,13 @@ package com.beta.replyservice.service.impl;
 import com.beta.replyservice.constants.CommonConstants;
 import com.beta.replyservice.dto.response.ReplyMessage;
 import com.beta.replyservice.exception.InvalidInputException;
-import com.beta.replyservice.service.ReplyService;
+import com.beta.replyservice.service.ReplyV2Service;
 import com.beta.replyservice.util.MD5;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ReplyServiceImpl implements ReplyService {
+public class ReplyV2ServiceImpl implements ReplyV2Service {
     /**
      * The input string will now be comprised of two components, a rule and a string, separated by a dash (-). Rules always contain two numbers. Each number represents a string operation.
      * The supported numbers are:

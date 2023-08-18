@@ -1,7 +1,7 @@
 package com.beta.replyservice.controller;
 
 import com.beta.replyservice.dto.response.ReplyMessage;
-import com.beta.replyservice.service.ReplyService;
+import com.beta.replyservice.service.ReplyV2Service;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class ReplyV2Controller {
 
 
-	private final ReplyService replyService;
+	private final ReplyV2Service replyService;
 
-	public ReplyV2Controller(ReplyService replyService) {
+	public ReplyV2Controller(ReplyV2Service replyService) {
 		this.replyService = replyService;
 	}
 
