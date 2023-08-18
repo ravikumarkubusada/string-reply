@@ -2,7 +2,6 @@ package com.beta.replyservice.controller;
 
 import com.beta.replyservice.dto.response.ReplyMessage;
 import com.beta.replyservice.service.ReplyService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

@@ -2,6 +2,7 @@ package com.beta.replyservice.service.impl;
 
 import com.beta.replyservice.constants.CommonConstants;
 import com.beta.replyservice.dto.response.ReplyMessage;
+import com.beta.replyservice.exception.InvalidInputException;
 import com.beta.replyservice.service.ReplyService;
 import com.beta.replyservice.util.MD5;
 import org.springframework.http.ResponseEntity;
@@ -27,8 +28,8 @@ public class ReplyServiceImpl implements ReplyService {
         try {
             String[] split = message.split(CommonConstants.HYPHEN);
             String[] digits = split[0].split("");
-
             message = split[1];
+
             for (String digit : digits) {
                 switch (digit) {
                     case "1":
@@ -38,7 +39,7 @@ public class ReplyServiceImpl implements ReplyService {
                         message = MD5.encode(message);
                         break;
                     default:
-                        throw new RuntimeException(ReplyMessage.INVALID_INPUT);
+                        throw new InvalidInputException(ReplyMessage.INVALID_INPUT);
                 }
             }
         }catch (Exception e) {
