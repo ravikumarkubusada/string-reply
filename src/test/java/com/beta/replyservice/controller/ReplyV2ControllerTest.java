@@ -6,7 +6,6 @@ import com.beta.replyservice.service.impl.ReplyServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
-import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -19,9 +18,16 @@ class ReplyV2ControllerTest {
 
     @BeforeEach
     public void init() {
-        MockitoAnnotations.initMocks(this);
         ReplyService replyService = new ReplyServiceImpl();
         replyV2Controller = new ReplyV2Controller(replyService);
+    }
+
+    @Test
+    void replyingEmptyTest() {
+
+        ResponseEntity<ReplyMessage> replying = replyV2Controller.replying();
+        assertEquals(ReplyMessage.MESSAGE_EMPTY, replying.getBody().getMessage());
+        assertEquals(HttpStatus.BAD_REQUEST, replying.getStatusCode());
     }
 
     @Test
@@ -45,7 +51,15 @@ class ReplyV2ControllerTest {
         String message = "13-hello";
         ResponseEntity<ReplyMessage> replying = replyV2Controller.replying(message);
         assertEquals(HttpStatus.BAD_REQUEST, replying.getStatusCode());
-        assertEquals("Invalid input", replying.getBody().getMessage());
+        assertEquals(ReplyMessage.INVALID_INPUT, replying.getBody().getMessage());
+    }
+
+    @Test
+    void replyingInvalidInputExceptionTest() {
+        String message = "13hello";
+        ResponseEntity<ReplyMessage> replying = replyV2Controller.replying(message);
+        assertEquals(HttpStatus.BAD_REQUEST, replying.getStatusCode());
+        assertEquals(ReplyMessage.INVALID_INPUT, replying.getBody().getMessage());
     }
 
 

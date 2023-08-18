@@ -29,7 +29,7 @@ public class ReplyV2Controller {
 	 */
 	@GetMapping()
 	public ResponseEntity<ReplyMessage> replying() {
-		return ResponseEntity.badRequest().body(new ReplyMessage("Message is empty"));
+		return ResponseEntity.badRequest().body(new ReplyMessage(ReplyMessage.MESSAGE_EMPTY));
 	}
 
 	/**

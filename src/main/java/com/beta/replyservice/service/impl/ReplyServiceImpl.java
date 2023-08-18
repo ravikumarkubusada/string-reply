@@ -1,5 +1,6 @@
 package com.beta.replyservice.service.impl;
 
+import com.beta.replyservice.constants.CommonConstants;
 import com.beta.replyservice.dto.response.ReplyMessage;
 import com.beta.replyservice.service.ReplyService;
 import com.beta.replyservice.util.MD5;
@@ -24,7 +25,7 @@ public class ReplyServiceImpl implements ReplyService {
     @Override
     public ResponseEntity<ReplyMessage> checkAndReply(String message) {
         try {
-            String[] split = message.split("-");
+            String[] split = message.split(CommonConstants.HYPHEN);
             String[] digits = split[0].split("");
 
             message = split[1];
@@ -37,11 +38,11 @@ public class ReplyServiceImpl implements ReplyService {
                         message = MD5.encode(message);
                         break;
                     default:
-                        message = "Invalid input";
+                        throw new RuntimeException(ReplyMessage.INVALID_INPUT);
                 }
             }
         }catch (Exception e) {
-            return ResponseEntity.badRequest().body(new ReplyMessage("Invalid input"));
+            return ResponseEntity.badRequest().body(new ReplyMessage(ReplyMessage.INVALID_INPUT));
         }
         return ResponseEntity.ok(new ReplyMessage(message));
     }
