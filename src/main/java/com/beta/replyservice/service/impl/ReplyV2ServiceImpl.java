@@ -2,9 +2,10 @@ package com.beta.replyservice.service.impl;
 
 import com.beta.replyservice.constants.CommonConstants;
 import com.beta.replyservice.dto.response.ReplyMessage;
+import com.beta.replyservice.enums.ProcessTypeEnum;
 import com.beta.replyservice.exception.InvalidInputException;
+import com.beta.replyservice.service.MessageFactory;
 import com.beta.replyservice.service.ReplyV2Service;
-import com.beta.replyservice.util.MD5;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -31,20 +32,23 @@ public class ReplyV2ServiceImpl implements ReplyV2Service {
             message = split[1];
 
             for (String digit : digits) {
-                switch (digit) {
-                    case "1":
-                        message = new StringBuilder(message).reverse().toString();
-                        break;
-                    case "2":
-                        message = MD5.encode(message);
-                        break;
-                    default:
-                        throw new InvalidInputException(ReplyMessage.INVALID_INPUT);
-                }
+                message = getMessageFactory(digit).process(message);
             }
-        }catch (Exception e) {
+
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body(new ReplyMessage(ReplyMessage.INVALID_INPUT));
         }
         return ResponseEntity.ok(new ReplyMessage(message));
+    }
+
+    private static MessageFactory getMessageFactory(String digit) {
+
+        if (digit.equalsIgnoreCase(ProcessTypeEnum.REVERSE.label)) {
+            return new ReverseMessageImpl();
+        } else if (digit.equalsIgnoreCase(ProcessTypeEnum.ENCODE.label)) {
+            return new EncodeMessageImpl();
+        } else {
+            throw new InvalidInputException(ReplyMessage.INVALID_INPUT);
+        }
     }
 }
