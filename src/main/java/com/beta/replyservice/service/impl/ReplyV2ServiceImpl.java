@@ -6,6 +6,8 @@ import com.beta.replyservice.enums.ProcessTypeEnum;
 import com.beta.replyservice.exception.InvalidInputException;
 import com.beta.replyservice.service.MessageFactory;
 import com.beta.replyservice.service.ReplyV2Service;
+import com.beta.replyservice.service.impl.message.process.EncodeMessageImpl;
+import com.beta.replyservice.service.impl.message.process.ReverseMessageImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +43,11 @@ public class ReplyV2ServiceImpl implements ReplyV2Service {
         return ResponseEntity.ok(new ReplyMessage(message));
     }
 
+    /**
+     *
+     * @param digit
+     * @return
+     */
     private static MessageFactory getMessageFactory(String digit) {
 
         if (digit.equalsIgnoreCase(ProcessTypeEnum.REVERSE.label)) {
