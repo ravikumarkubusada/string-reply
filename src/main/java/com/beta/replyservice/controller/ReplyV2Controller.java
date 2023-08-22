@@ -2,6 +2,8 @@ package com.beta.replyservice.controller;
 
 import com.beta.replyservice.dto.response.ReplyMessage;
 import com.beta.replyservice.service.ReplyV2Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/v2/reply")
 public class ReplyV2Controller {
-
+	private final Logger logger = LoggerFactory.getLogger(ReplyV2Controller.class);
 
 	private final ReplyV2Service replyService;
 
@@ -28,6 +30,7 @@ public class ReplyV2Controller {
 	 */
 	@GetMapping()
 	public ResponseEntity<ReplyMessage> replying() {
+		logger.info("inside replying api, invalid input");
 		return ResponseEntity.badRequest().body(new ReplyMessage(ReplyMessage.MESSAGE_EMPTY));
 	}
 
@@ -38,6 +41,7 @@ public class ReplyV2Controller {
 	 */
 	@GetMapping("/{message}")
 	public ResponseEntity<ReplyMessage> replying(@PathVariable String message) {
+		logger.info("inside reply api");
 		return replyService.checkAndReply(message);
 	}
 }
