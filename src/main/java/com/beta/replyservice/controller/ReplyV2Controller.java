@@ -30,7 +30,7 @@ public class ReplyV2Controller {
 	 */
 	@GetMapping()
 	public ResponseEntity<ReplyMessage> replying() {
-		logger.info("inside replying api, invalid input");
+		logger.error("Message empty");
 		return ResponseEntity.badRequest().body(new ReplyMessage(ReplyMessage.MESSAGE_EMPTY));
 	}
 
